@@ -22,6 +22,10 @@ for example for shared 64 bit and msvc
 ```
 build.bat shared 32 msvc
 ```
+It is also possible to specifiy the visual studio version
+```
+build.bat shared 32 msvc-14.0
+```
 
 **Third-party**:
 
