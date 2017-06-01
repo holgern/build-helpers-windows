@@ -52,11 +52,11 @@ call :printConfiguration
 
 call :getboost
 
-rem call :buildboost
+call :buildboost
 
-rem call :packboost
+call :packboost
 
-rem call :cleanup
+call :cleanup
 
 ENDLOCAL
 exit /b
