@@ -189,7 +189,7 @@ cd ..
 ren tmp boost
 
 cd %ROOT_DIR%\third-party
-!SEVEN_ZIP! a -t7z ../!OUTPUT_FILE!  libboost
+!SEVEN_ZIP! a -t7z ../../!OUTPUT_FILE!  libboost
 GOTO :eof
 rem ========================================================================================================
 :usage
