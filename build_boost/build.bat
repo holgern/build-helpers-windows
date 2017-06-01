@@ -5,14 +5,14 @@ echo Preparing workspace...
 
 REM Setup path to helper bin
 set ROOT_DIR="%CD%"
-set RM="%CD%\bin\unxutils\rm.exe"
-set CP="%CD%\bin\unxutils\cp.exe"
-set MKDIR="%CD%\bin\unxutils\mkdir.exe"
-set SEVEN_ZIP="%CD%\bin\7-zip\7za.exe"
-set SED="%CD%\bin\unxutils\sed.exe"
-set WGET="%CD%\bin\unxutils\wget.exe"
-set XIDEL="%CD%\bin\xidel\xidel.exe"
-set VSPC="%CD%\bin\vspc\vspc.exe"
+set RM="%CD%\..\bin\unxutils\rm.exe"
+set CP="%CD%\..\bin\unxutils\cp.exe"
+set MKDIR="%CD%\..\bin\unxutils\mkdir.exe"
+set SEVEN_ZIP="%CD%\..\bin\7-zip\7za.exe"
+set SED="%CD%\..\bin\unxutils\sed.exe"
+set WGET="%CD%\..\bin\unxutils\wget.exe"
+set XIDEL="%CD%\..\bin\xidel\xidel.exe"
+set VSPC="%CD%\..\bin\vspc\vspc.exe"
 
 SET arg[0]=%1
 SET arg[1]=%2
