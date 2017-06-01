@@ -52,11 +52,11 @@ call :printConfiguration
 
 call :getboost
 
-call :buildboost
+rem call :buildboost
 
-call :packboost
+rem call :packboost
 
-call :cleanup
+rem call :cleanup
 
 ENDLOCAL
 exit /b
@@ -88,13 +88,13 @@ rem ============================================================================
 REM Get download url.
 echo Get download url...
 cd %ROOT_DIR%
-%XIDEL% "http://www.boost.org/" --follow "(//div[@id='downloads']/ul/li/div/a)[3]/@href" -e "//a[text()[contains(.,'7z')]]/@href" > tmp_url
+%XIDEL% "http://www.boost.org/" --follow "(//div[@id='downloads']/ul/li/div/a)[2]/@href" -e "//a[text()[contains(.,'7z')]]/@href" > tmp_url
 
 set /p url=<tmp_url
 
 REM Download latest curl and rename to fltk.tar.gz
 echo Downloading latest stable boost...
-%WGET% "%url%" -O boost.7z
+%WGET% --no-check-certificate "%url%" -O boost.7z
 
 IF NOT EXIST "boost.7z" (
 	echo:
