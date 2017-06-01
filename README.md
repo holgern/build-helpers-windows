@@ -6,33 +6,21 @@ Please keep in mind compiling Boost library takes a very long time.
 
 **Usage**:
 
-1. Clone or download this repo https://github.com/blackrosezy/build-libboost-windows/archive/master.zip
+1. Clone or download this repo https://github.com/holgern/build-helpers-windows/archive/master.zip
 
-2. Open command prompt and cd to `xxx/build-libboost-windows`
+2. Open command prompt and cd to `xxx/build-helpers-windows/build_boost`
 
-3. Run this command for building static and shared library:
+3. Set path to compiler if necesasry
 ```
-build.bat 32 msvc
+set PATH=C:\Qt\Tools\mingw530_32\bin;%PATH%;
 ```
-or for 64 bit
+3. Run this command for building:
 ```
-build.bat 32 msvc
+build.bat [all/static/shared] [32/64] [msvc/gcc]
 ```
-Run this command for building  shared library:
+for example for shared 64 bit and msvc
 ```
-build_dll.bat 32 msvc
-```
-or for 64 bit
-```
-build_dll.bat 64 msvc
-```
-Run this command for building  static library:
-```
-build_lib.bat 32 msvc
-```
-or for 64 bit
-```
-build_lib.bat 64 msvc
+build.bat shared 32 msvc
 ```
 
 **Third-party**:
