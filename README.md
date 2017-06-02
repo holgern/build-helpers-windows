@@ -36,3 +36,5 @@ http://sourceforge.net/projects/unxutils/files/unxutils/current/
 http://www.7-zip.org/download.html
 
 http://sourceforge.net/projects/videlibri/files/Xidel/
+
+https://cmake.org/download/

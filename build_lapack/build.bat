@@ -36,9 +36,9 @@ call :getlapack
 
 call :buildlapack
 
-rem call :packboost
+call :packlapack
 
-rem call :cleanup
+call :cleanup
 
 ENDLOCAL
 exit /b
@@ -98,34 +98,30 @@ echo  LAPACK_SRC_DIR: !LAPACK_SRC_DIR!
 %MKDIR% -p build_release build_debug
 
 cd %LAPACK_SRC_DIR%\build_release
-!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Relase ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=FALSE  -DCMAKE_BUILD_TYPE=Relase ..
 mingw32-make.exe
 cd %LAPACK_SRC_DIR%\build_debug
-!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Debug ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=FALSE  -DCMAKE_BUILD_TYPE=Debug ..
 mingw32-make.exe
 GOTO :eof
 rem ========================================================================================================
-:packboost
+:packlapack
 REM copy files
 echo Copying output files...
+cd %ROOT_DIR%\tmp_liblapack\lapack*
+%MKDIR% -p lib
+cd lib
+%MKDIR% -p lib-release lib-debug dll-release dll-debug
+move build_debug\bin\*.dll dll-debug
+move build_debug\lib\lib* lib-debug
+move build_release\bin\*.dll dll-release
+move build_release\lib\lib* lib-release
 
-if /i "%LIBRARY_TYPE%" == "all" (
-	cd %ROOT_DIR%\third-party\libboost\stage\lib
-	%MKDIR% -p lib-release lib-debug dll-release dll-debug
-	move lib*-mt-gd* lib-debug
-	move lib* lib-release
-	move *-mt-gd* dll-debug
-	move *-mt-* dll-release
-)
 
-cd %ROOT_DIR%\third-party\libboost\include\boost*
-move boost ..\tmp
-cd ..
-%RM% -rf boost*
-ren tmp boost
+cd %ROOT_DIR%\tmp_liblapack\lapack*
 
-cd %ROOT_DIR%\third-party
-!SEVEN_ZIP! a -t7z ../../!OUTPUT_FILE!  libboost
+
+!SEVEN_ZIP! a -t7z ../../!OUTPUT_FILE!  lib
 GOTO :eof
 rem ========================================================================================================
 :usage
