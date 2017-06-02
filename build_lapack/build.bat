@@ -38,7 +38,7 @@ call :buildlapack
 
 call :packlapack
 
-rem call :cleanup
+call :cleanup
 
 ENDLOCAL
 exit /b
