@@ -38,7 +38,7 @@ call :buildlapack
 
 call :packlapack
 
-call :cleanup
+rem call :cleanup
 
 ENDLOCAL
 exit /b
@@ -112,23 +112,23 @@ cd %ROOT_DIR%\tmp_liblapack\lapack*
 %MKDIR% -p lib
 cd lib
 %MKDIR% -p lib-release lib-debug dll-release dll-debug
-move build_debug\bin\*.dll dll-debug
+%CP% ..\build_debug\bin\*.dll dll-debug
 %CP% !COMPILER_ROOT_DIR!\libgfortran-3.dll dll-debug
 %CP% !COMPILER_ROOT_DIR!\libgcc_s_dw2-1.dll dll-debug
-%CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-debug
-%CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-debug
-%CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-debug
+rem %CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-debug
+rem %CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-debug
+rem %CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-debug
 
-move build_debug\lib\lib* lib-debug
-move build_release\bin\*.dll dll-release
+%CP% ..\build_debug\lib\lib* lib-debug
+%CP% ..\build_release\bin\*.dll dll-release
 %CP% !COMPILER_ROOT_DIR!\libgfortran-3.dll dll-release
 %CP% !COMPILER_ROOT_DIR!\libgcc_s_dw2-1.dll dll-release
-%CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-release
-%CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-release
-%CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-release
+rem %CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-release
+rem %CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-release
+rem %CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-release
 
 
-move build_release\lib\lib* lib-release
+%CP% ..\build_release\lib\lib* lib-release
 
 
 cd %ROOT_DIR%\tmp_liblapack\lapack*
