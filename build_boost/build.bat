@@ -183,9 +183,10 @@ if /i "%LIBRARY_TYPE%" == "all" (
 )
 
 cd %ROOT_DIR%\third-party\libboost\include\boost*
+set BOOST_TO_DEL="%CD%"
 move boost ..\tmp
 cd ..
-%RM% -rf boost*
+RMDIR  !BOOST_TO_DEL! /S /Q
 ren tmp boost
 
 cd %ROOT_DIR%\third-party
