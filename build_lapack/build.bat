@@ -15,6 +15,9 @@ set XIDEL="%~dp0..\bin\xidel\xidel.exe"
 set VSPC="%~dp0..\bin\vspc\vspc.exe"
 SET CMAKE="%~dp0..\bin\cmake\bin\cmake.exe"
 
+SET arg[0]=%1
+
+if "!arg[0]!"!="" ( set COMPILER_ROOT_DIR=!arg[0]! )
 
 SET OUTPUT_FILE=liblapack.7z
 
@@ -89,9 +92,9 @@ rem ============================================================================
 :buildlapack
 cd %ROOT_DIR%\tmp_liblapack\lapack*
 set LAPACK_SRC_DIR="%CD%"
+echo  LAPACK_SRC_DIR: !LAPACK_SRC_DIR!
+%MKDIR% -p build_release build_debug
 
-%MKDIR% build_release
-%MKDIR% build_debug
 cd %LAPACK_SRC_DIR%\build_release
 !CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Relase ..
 mingw32-make.exe
