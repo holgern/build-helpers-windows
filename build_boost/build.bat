@@ -46,17 +46,17 @@ if /i "!arg[3]!" == "--with-python" (
 		SET USER_CONFIG=!ROOT_DIR!\user-config64.jam
 	)
 )
-call :housekeeping
+rem call :housekeeping
 
 call :printConfiguration
 
-call :getboost
+rem call :getboost
 
-call :buildboost
+rem call :buildboost
 
 call :packboost
 
-call :cleanup
+rem call :cleanup
 
 ENDLOCAL
 exit /b
@@ -183,10 +183,9 @@ if /i "%LIBRARY_TYPE%" == "all" (
 )
 
 cd %ROOT_DIR%\third-party\libboost\include\boost*
-set BOOST_TO_DEL="%CD%"
 move boost ..\tmp
 cd ..
-RMDIR  !BOOST_TO_DEL! /S /Q
+%RM% -rf  boost*
 ren tmp boost
 
 cd %ROOT_DIR%\third-party
