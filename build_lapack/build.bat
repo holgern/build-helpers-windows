@@ -98,10 +98,10 @@ echo  LAPACK_SRC_DIR: !LAPACK_SRC_DIR!
 %MKDIR% -p build_release build_debug
 
 cd %LAPACK_SRC_DIR%\build_release
-!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=FALSE  -DCMAKE_BUILD_TYPE=Relase ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF  -DCMAKE_BUILD_TYPE=Relase ..
 mingw32-make.exe
 cd %LAPACK_SRC_DIR%\build_debug
-!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=FALSE  -DCMAKE_BUILD_TYPE=Debug ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Debug ..
 mingw32-make.exe
 GOTO :eof
 rem ========================================================================================================
@@ -113,8 +113,21 @@ cd %ROOT_DIR%\tmp_liblapack\lapack*
 cd lib
 %MKDIR% -p lib-release lib-debug dll-release dll-debug
 move build_debug\bin\*.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libgfortran-3.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libgcc_s_dw2-1.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-debug
+
 move build_debug\lib\lib* lib-debug
 move build_release\bin\*.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libgfortran-3.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libgcc_s_dw2-1.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-release
+
+
 move build_release\lib\lib* lib-release
 
 
