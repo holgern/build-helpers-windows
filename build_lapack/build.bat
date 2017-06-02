@@ -93,10 +93,10 @@ set LAPACK_SRC_DIR="%CD%"
 %MKDIR% build_release
 %MKDIR% build_debug
 cd %LAPACK_SRC_DIR%\build_release
-%CMAKE% -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Relase ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Relase ..
 mingw32-make.exe
 cd %LAPACK_SRC_DIR%\build_debug
-%CMAKE% -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Debug ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Debug ..
 mingw32-make.exe
 GOTO :eof
 rem ========================================================================================================
@@ -144,6 +144,8 @@ echo:
 echo        SEVEN_ZIP: !SEVEN_ZIP!
 echo:
 echo           WGET: !WGET!
+echo:
+echo        CMAKE: !CMAKE!
 ENDLOCAL
 goto :eof
 
