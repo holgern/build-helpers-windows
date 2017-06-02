@@ -21,7 +21,7 @@ if "!arg[0]!"=="" ( GOTO :usage )else ( set COMPILER_ROOT_DIR=!arg[0]!)
 
 set PATH=!COMPILER_ROOT_DIR!;%PATH%;
 
-SET OUTPUT_FILE=liblapack.7z
+SET OUTPUT_FILE=liblapack
 
 
 set OUTPUT_FILE=%OUTPUT_FILE: =%
