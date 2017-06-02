@@ -17,7 +17,9 @@ SET CMAKE="%~dp0..\bin\cmake\bin\cmake.exe"
 
 SET arg[0]=%1
 
-if "!arg[0]!"!="" ( set COMPILER_ROOT_DIR=!arg[0]! )
+if "!arg[0]!"=="" ( GOTO :usage )else ( set COMPILER_ROOT_DIR=!arg[0]!)
+
+set PATH=!COMPILER_ROOT_DIR!;%PATH%;
 
 SET OUTPUT_FILE=liblapack.7z
 
@@ -131,7 +133,7 @@ rem call :printConfiguration
 ECHO: 
 ECHO Error in script usage. The correct usage is:
 ECHO:
-ECHO     build
+ECHO     build path_to_gcc.exe
 ECHO:    
 GOTO :eof
 rem ========================================================================================================
