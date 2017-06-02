@@ -13,7 +13,7 @@ set SED="%~dp0..\bin\unxutils\sed.exe"
 set WGET="%~dp0..\bin\unxutils\wget.exe"
 set XIDEL="%~dp0..\bin\xidel\xidel.exe"
 set VSPC="%~dp0..\bin\vspc\vspc.exe"
-SET CMAKE="%~dp0..\bin\cmake\cmake.exe"
+SET CMAKE="%~dp0..\bin\cmake\bin\cmake.exe"
 
 
 SET OUTPUT_FILE=liblapack.7z

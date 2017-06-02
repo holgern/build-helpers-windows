@@ -1,4 +1,6 @@
 tmp_libboost/
+tmp_liblapack/
+build/
 third-party/
 *.7z
 tmp_url
