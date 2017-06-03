@@ -200,7 +200,7 @@ cd ..
 SET p=%CD%
 SET a=boost
 for /D %%x in (%a%*) do if not defined f set "f=%%x"
-SET pa=%p%%f%
+SET pa=%p%\%f%
 echo %pa%
 RMDIR %pa% /S /Q
 rem %RM% -rf  boost*
