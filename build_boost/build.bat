@@ -4,7 +4,7 @@ SETLOCAL EnableExtensions EnableDelayedExpansion
 echo Preparing workspace...
 
 REM Setup path to helper bin
-set ROOT_DIR="%~dp0"
+set ROOT_DIR=%~dp0
 set RM="%~dp0..\bin\unxutils\rm.exe"
 set CP="%~dp0..\bin\unxutils\cp.exe"
 set MKDIR="%~dp0..\bin\unxutils\mkdir.exe"
@@ -136,7 +136,8 @@ IF NOT EXIST "!BOOST_JAM!" (
 	echo Using Boost Jam: !BOOST_JAM!
 	echo:
 )
-
+%MKDIR% -p !ROOT_DIR!\third-party
+%MKDIR% -p !ROOT_DIR!\third-party\libboost
 
 if /i "!arg[3]!" == "--with-python" (
 	if /i "%LIBRARY_TYPE%" == "all" (
