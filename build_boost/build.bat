@@ -46,17 +46,17 @@ if /i "!arg[3]!" == "--with-python" (
 		SET USER_CONFIG=!ROOT_DIR!\user-config64.jam
 	)
 )
-rem call :housekeeping
+call :housekeeping
 
 call :printConfiguration
 
-rem call :getboost
+call :getboost
 
-rem call :buildboost
+call :buildboost
 
 call :packboost
 
-rem call :cleanup
+call :cleanup
 
 ENDLOCAL
 exit /b
@@ -181,11 +181,28 @@ if /i "%LIBRARY_TYPE%" == "all" (
 	move *-mt-gd* dll-debug
 	move *-mt-* dll-release
 )
+IF NOT EXIST "%ROOT_DIR%\third-party\libboost\include" (
+	echo:
+	CALL :exitB "ERROR: %ROOT_DIR%\third-party\libboost\include does not exists . Aborting."
+	GOTO :eof
+)
 
 cd %ROOT_DIR%\third-party\libboost\include\boost*
+IF NOT EXIST "%CD%\boost" (
+	echo:
+	CALL :exitB "ERROR: %CD%\boost does not exists . Aborting."
+	GOTO :eof
+)
 move boost ..\tmp
 cd ..
-%RM% -rf  boost*
+
+SET p=%CD%
+SET a=boost
+for /D %%x in (%a%*) do if not defined f set "f=%%x"
+SET pa=%p%%f%
+echo %pa%
+RMDIR %pa% /S /Q
+rem %RM% -rf  boost*
 ren tmp boost
 
 cd %ROOT_DIR%\third-party
