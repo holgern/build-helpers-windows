@@ -16,37 +16,16 @@ set VSPC="%~dp0..\bin\vspc\vspc.exe"
 SET CMAKE="%~dp0..\bin\cmake\bin\cmake.exe"
 
 SET arg[0]=%1
-SET arg[1]=%2
-SET arg[2]=%3
-SET arg[3]=%4
 
-if "!arg[0]!"=="" ( set LIBRARY_TYPE=all )else ( set LIBRARY_TYPE=!arg[0]!)
+if "!arg[0]!"=="" ( GOTO :usage )else ( set COMPILER_ROOT_DIR=!arg[0]!)
 
-if "!arg[1]!"=="" ( set ADRESS_MODEL=64 )else ( set ADRESS_MODEL=!arg[1]!)
-rem ... or use the DEFINED keyword now
-rem if defined param1 ( set ADRESS_MODEL=%1 )
-if "!arg[2]!"=="" ( set TOOL_SET=msvc )else ( set TOOL_SET=!arg[2]! )
-rem ... or use the DEFINED keyword now
-rem if defined param2 ( set TOOL_SET=%2 )
+set PATH=!COMPILER_ROOT_DIR!;%PATH%;
 
-echo Building with toolset=!TOOL_SET!, library-type=!LIBRARY_TYPE! and address-model=!ADRESS_MODEL! 
+SET OUTPUT_FILE=libopenblas
 
-Echo.!TOOL_SET! | findstr /C:"msvc">nul && (
-    SET OUTPUT_FILE=openblas_vc%TOOL_SET:~5,2%_!ADRESS_MODEL!_!LIBRARY_TYPE!
-) || (
-    SET OUTPUT_FILE=openblas_!TOOL_SET!_!ADRESS_MODEL!_!LIBRARY_TYPE!
-)
 
 set OUTPUT_FILE=%OUTPUT_FILE: =%
 set OUTPUT_FILE=%OUTPUT_FILE:.=%
-
-if /i "!arg[3]!" == "--with-python" (
-	if /i "!ADRESS_MODEL!" == "32" (
-		SET USER_CONFIG=!ROOT_DIR!\user-config.jam
-	) else (
-		SET USER_CONFIG=!ROOT_DIR!\user-config64.jam
-	)
-)
 call :housekeeping
 
 rem call :printConfiguration
@@ -131,41 +110,33 @@ rem ============================================================================
 :packopenblas
 REM copy files
 echo Copying output files...
+cd %ROOT_DIR%\tmp_openblas\OpenBLAS-*
+%MKDIR% -p lib
+cd lib
+%MKDIR% -p lib-release lib-debug dll-release dll-debug
+%CP% ..\build_debug\bin\*.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libgfortran-3.dll dll-debug
+%CP% !COMPILER_ROOT_DIR!\libgcc_s_dw2-1.dll dll-debug
+rem %CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-debug
+rem %CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-debug
+rem %CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-debug
 
-if /i "%LIBRARY_TYPE%" == "all" (
-	cd %ROOT_DIR%\third-party\libboost\stage\lib
-	%MKDIR% -p lib-release lib-debug dll-release dll-debug
-	move lib*-mt-gd* lib-debug
-	move lib* lib-release
-	move *-mt-gd* dll-debug
-	move *-mt-* dll-release
-)
-IF NOT EXIST "%ROOT_DIR%\third-party\libboost\include" (
-	echo:
-	CALL :exitB "ERROR: %ROOT_DIR%\third-party\libboost\include does not exists . Aborting."
-	GOTO :eof
-)
+%CP% ..\build_debug\lib\lib* lib-debug
+%CP% ..\build_release\bin\*.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libgfortran-3.dll dll-release
+%CP% !COMPILER_ROOT_DIR!\libgcc_s_dw2-1.dll dll-release
+rem %CP% !COMPILER_ROOT_DIR!\libstdc++-6.dll dll-release
+rem %CP% !COMPILER_ROOT_DIR!\libwinpthread-1.dll dll-release
+rem %CP% !COMPILER_ROOT_DIR!\libquadmath-0.dll dll-release
 
-cd %ROOT_DIR%\third-party\libboost\include\boost*
-IF NOT EXIST "%CD%\boost" (
-	echo:
-	CALL :exitB "ERROR: %CD%\boost does not exists . Aborting."
-	GOTO :eof
-)
-move boost ..\tmp
-cd ..
 
-SET p=%CD%
-SET a=boost
-for /D %%x in (%a%*) do if not defined f set "f=%%x"
-SET pa=%p%\%f%
-echo %pa%
-RMDIR %pa% /S /Q
-rem %RM% -rf  boost*
-ren tmp boost
+%CP% ..\build_release\lib\lib* lib-release
 
-cd %ROOT_DIR%\third-party
-!SEVEN_ZIP! a -t7z ../../!OUTPUT_FILE!  libboost
+
+cd %ROOT_DIR%\tmp_openblas\OpenBLAS-*
+
+
+!SEVEN_ZIP! a -t7z ../../!OUTPUT_FILE!  lib
 GOTO :eof
 rem ========================================================================================================
 :usage
@@ -173,9 +144,7 @@ rem call :printConfiguration
 ECHO: 
 ECHO Error in script usage. The correct usage is:
 ECHO:
-ECHO     build [all^|shared^|static] - build 32 bit with msvc without python
-ECHO     build [all^|shared^|static] [32^|64] compiler - build boost without python
-ECHO     build [all^|shared^|static] [32^|64] compiler --with-python - build boost with python
+ECHO     build path_to_gcc.exe
 ECHO:    
 GOTO :eof
 rem ========================================================================================================
@@ -191,6 +160,8 @@ echo:
 echo        SEVEN_ZIP: !SEVEN_ZIP!
 echo:
 echo           WGET: !WGET!
+echo:
+echo        CMAKE: !CMAKE!
 ENDLOCAL
 goto :eof
 
