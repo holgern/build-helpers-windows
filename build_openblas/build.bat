@@ -28,13 +28,13 @@ set OUTPUT_FILE=%OUTPUT_FILE: =%
 set OUTPUT_FILE=%OUTPUT_FILE:.=%
 call :housekeeping
 
-rem call :printConfiguration
+call :printConfiguration
 
 call :getopenblas
 
 call :buildopenblas
 
-rem call :packboost
+rem call :packopenblas
 
 rem call :cleanup
 
@@ -98,10 +98,10 @@ echo  OPENBLAS_SRC_DIR: !OPENBLAS_SRC_DIR!
 %MKDIR% -p build_release build_debug
 
 cd %OPENBLAS_SRC_DIR%\build_release
-!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON"  -DBUILD_WITHOUT_CBLAS=ON -DBUILD_DEBUG=OFF ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON"  -DBUILD_WITHOUT_CBLAS=ON -DBUILD_DEBUG=OFF -DNO_LAPACKE =OFF ..
 mingw32-make.exe
 cd %OPENBLAS_SRC_DIR%\build_debug
-!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_WITHOUT_CBLAS=ON -DBUILD_DEBUG=ON ..
+!CMAKE! -G "MinGW Makefiles" -D "CMAKE_GNUtoMS=ON" -DBUILD_WITHOUT_CBLAS=ON -DBUILD_DEBUG=ON -DNO_LAPACKE =OFF ..
 mingw32-make.exe
 
 )
