@@ -73,14 +73,7 @@ DEL /Q %ROOT_DIR%\tmp_url >nul 2>&1
 DEL /Q %ROOT_DIR%\boost.7z >nul 2>&1
 GOTO :eof
 
-rem ========================================================================================================
-:cleanup
-REM Cleanup temporary file/folders
-cd %ROOT_DIR%
-RD /S /Q %ROOT_DIR%\tmp_libboost >nul 2>&1
-DEL /Q %ROOT_DIR%\tmp_url >nul 2>&1
-DEL /Q %ROOT_DIR%\boost.7z >nul 2>&1
-GOTO :eof
+
 
 rem ========================================================================================================
 :getboost
@@ -208,6 +201,14 @@ ren tmp boost
 
 cd %ROOT_DIR%\third-party
 !SEVEN_ZIP! a -t7z ../../!OUTPUT_FILE!  libboost
+GOTO :eof
+rem ========================================================================================================
+:cleanup
+REM Cleanup temporary file/folders
+cd %ROOT_DIR%
+RD /S /Q %ROOT_DIR%\tmp_libboost >nul 2>&1
+DEL /Q %ROOT_DIR%\tmp_url >nul 2>&1
+DEL /Q %ROOT_DIR%\boost.7z >nul 2>&1
 GOTO :eof
 rem ========================================================================================================
 :usage
