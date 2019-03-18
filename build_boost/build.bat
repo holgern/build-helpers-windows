@@ -33,9 +33,8 @@ rem if defined param1 ( set ADRESS_MODEL=%1 )
 if "!arg[2]!"=="" ( set TOOL_SET=msvc )else ( set TOOL_SET=!arg[2]! )
 rem ... or use the DEFINED keyword now
 rem if defined param2 ( set TOOL_SET=%2 )
-if "!arg[3]!"=="" ( set BOOST_URL=url )else ( set BOOST_URL=!arg[3]! )
+if "!arg[3]!"=="" ( set BOOST_URL=url )else ( set BOOST_URL=!arg[3]: =! )
 
-set BOOST_URL=%BOOST_URL:=%
 
 echo Building with toolset=!TOOL_SET!, library-type=!LIBRARY_TYPE! and address-model=!ADRESS_MODEL! 
 echo URL is !BOOST_URL!
