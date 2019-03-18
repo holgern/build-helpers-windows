@@ -149,7 +149,7 @@ if /i "!arg[3]!" == "--with-python" (
 	) else (
 		goto usage
 	)
-) else if /i "!arg[3]!" == "" (
+) else (
 	if /i "%LIBRARY_TYPE%" == "all" (
 			!BOOST_JAM! install toolset=%TOOL_SET% variant=release,debug link=static,shared threading=multi address-model=%ADRESS_MODEL% --prefix=!ROOT_DIR!\third-party\libboost --without-python --abbreviate-paths --stagedir=./stage
 
@@ -162,9 +162,7 @@ if /i "!arg[3]!" == "--with-python" (
 	) else (
 		goto usage
 	)
-) else (
-	goto usage
-)
+) 
 GOTO :eof
 rem ========================================================================================================
 :packboost
