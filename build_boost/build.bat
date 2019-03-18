@@ -10,7 +10,7 @@ set CP="%~dp0..\bin\unxutils\cp.exe"
 set MKDIR="%~dp0..\bin\unxutils\mkdir.exe"
 set SEVEN_ZIP="%~dp0..\bin\7-zip\7za.exe"
 set SED="%~dp0..\bin\unxutils\sed.exe"
-set WGET="%~dp0..\bin\unxutils\wget.exe"
+set WGET="%~dp0..\bin\wget\wget.exe"
 set XIDEL="%~dp0..\bin\xidel\xidel.exe"
 set VSPC="%~dp0..\bin\vspc\vspc.exe"
 
