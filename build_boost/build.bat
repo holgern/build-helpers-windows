@@ -91,7 +91,7 @@ rem ============================================================================
 
 REM Download latest curl and rename to fltk.tar.gz
 echo Downloading latest stable boost...
-%WGET% --no-check-certificate "%BOOST_URL%" -O boost.7z
+%WGET% --no-check-certificate !BOOST_URL! -O boost.7z
 
 IF NOT EXIST "boost.7z" (
 	echo:
