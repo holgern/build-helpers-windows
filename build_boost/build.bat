@@ -19,6 +19,12 @@ SET arg[1]=%2
 SET arg[2]=%3
 SET arg[3]=%4
 
+REM Get download url.
+echo Get download url...
+cd %ROOT_DIR%
+%XIDEL% "http://www.boost.org/" --follow "(//div[@id='downloads']/ul/li/div/a)[2]/@href" -e "//a[text()[contains(.,'7z')]]/@href" > tmp_url
+set /p url=<tmp_url
+
 if "!arg[0]!"=="" ( set LIBRARY_TYPE=all )else ( set LIBRARY_TYPE=!arg[0]!)
 
 if "!arg[1]!"=="" ( set ADRESS_MODEL=64 )else ( set ADRESS_MODEL=!arg[1]!)
@@ -27,8 +33,9 @@ rem if defined param1 ( set ADRESS_MODEL=%1 )
 if "!arg[2]!"=="" ( set TOOL_SET=msvc )else ( set TOOL_SET=!arg[2]! )
 rem ... or use the DEFINED keyword now
 rem if defined param2 ( set TOOL_SET=%2 )
-
+if "!arg[3]!"=="" ( set BOOST_URL=url )else ( set BOOST_URL=!arg[3]! )
 echo Building with toolset=!TOOL_SET!, library-type=!LIBRARY_TYPE! and address-model=!ADRESS_MODEL! 
+echo URL is !BOOST_URL!
 
 Echo.!TOOL_SET! | findstr /C:"msvc">nul && (
     SET OUTPUT_FILE=libboost_vc%TOOL_SET:~5,2%_!ADRESS_MODEL!_!LIBRARY_TYPE!
@@ -78,16 +85,11 @@ GOTO :eof
 rem ========================================================================================================
 :getboost
 
-REM Get download url.
-echo Get download url...
-cd %ROOT_DIR%
-%XIDEL% "http://www.boost.org/" --follow "(//div[@id='downloads']/ul/li/div/a)[2]/@href" -e "//a[text()[contains(.,'7z')]]/@href" > tmp_url
 
-set /p url=<tmp_url
 
 REM Download latest curl and rename to fltk.tar.gz
 echo Downloading latest stable boost...
-%WGET% --no-check-certificate "%url%" -O boost.7z
+%WGET% --no-check-certificate "%BOOST_URL%" -O boost.7z
 
 IF NOT EXIST "boost.7z" (
 	echo:
