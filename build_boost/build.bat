@@ -18,6 +18,7 @@ SET arg[0]=%1
 SET arg[1]=%2
 SET arg[2]=%3
 SET arg[3]=%4
+SET arg[4]=%5
 
 REM Get download url.
 echo Get download url...
@@ -48,7 +49,7 @@ Echo.!TOOL_SET! | findstr /C:"msvc">nul && (
 set OUTPUT_FILE=%OUTPUT_FILE: =%
 set OUTPUT_FILE=%OUTPUT_FILE:.=%
 
-if /i "!arg[3]!" == "--with-python" (
+if /i "!arg[4]!" == "--with-python" (
 	if /i "!ADRESS_MODEL!" == "32" (
 		SET USER_CONFIG=!ROOT_DIR!\user-config.jam
 	) else (
