@@ -137,7 +137,7 @@ IF NOT EXIST "!BOOST_JAM!" (
 %MKDIR% -p !ROOT_DIR!\third-party
 %MKDIR% -p !ROOT_DIR!\third-party\libboost
 
-if /i "!arg[3]!" == "--with-python" (
+if /i "!arg[4]!" == "--with-python" (
 	if /i "%LIBRARY_TYPE%" == "all" (
 		!BOOST_JAM! install toolset=%TOOL_SET% variant=release,debug link=static,shared threading=multi address-model=%ADRESS_MODEL% --prefix=!ROOT_DIR!\third-party\libboost ---user-config=%USER_CONFIG% --with-python --abbreviate-paths --stagedir=./stage
 
