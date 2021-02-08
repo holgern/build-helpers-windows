@@ -1,4 +1,4 @@
-using python : 2.7 : C:\\\Python27\\\python.exe
-  : C:\\\Python27\\\include
-  : C:\\\Python27\\\libs
+using python : 3.8 : C:\\\Python38-32\\\python.exe
+  : C:\\\Python38-32\\\include
+  : C:\\\Python38-32\\\libs
   : <address-model>32 ;
